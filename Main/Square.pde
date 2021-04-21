@@ -3,6 +3,7 @@ class Square{
     int depth;
     float size;
     ArrayList<Square> squares;
+    Texture texture;
 
     Square(Point _c){
         this.center = _c;
@@ -10,6 +11,7 @@ class Square{
         this.depth = 0;
         this.size = 0.9*width / pow(2, this.depth);
         this.squares = new ArrayList<Square>();
+        this.texture = new Texture(this.center, this.size, int(this.size/(MAXDEPTH-this.depth+1)));
     }
     Square(Point _c, int _d){
         this.center = _c;
@@ -17,6 +19,7 @@ class Square{
 
         this.size = 0.9*width / pow(2, this.depth);
         this.squares = new ArrayList<Square>();
+        this.texture = new Texture(this.center, this.size, int(this.size/(5*(MAXDEPTH-this.depth)+1)));
     }
 
     boolean contains(){
@@ -33,10 +36,15 @@ class Square{
         if(this.contains()){
             if(this.depth < MAXDEPTH)
                 this.update();
-            else if(this.depth == MAXDEPTH)
-                fill(0, 255, 0, 100);
+            else if(this.depth == MAXDEPTH){
+                // fill(0, 255, 0, 100);
+                // draw_square(this.center, this.size);
+                texture.display();
+            }
+        } else {
+            // draw_square(this.center, this.size);
+            texture.display();
         }
-        draw_square(this.center, this.size);
         for(Square square : this.squares){
             square.display();
         }
